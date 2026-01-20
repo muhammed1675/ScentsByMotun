@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Shop Perfumes - ScentsBymotun" />
+    <title>Shop - ScentsBymotun</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+  </head>
+  <body>
+    <!-- Header & Navigation -->
+    <header>
+      <div class="container">
+        <nav class="flex justify-between items-center">
+          <a href="../index.html" class="logo">ScentsBymotun</a>
+
+          <ul class="nav-menu">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+          </ul>
+
+          <div class="nav-actions">
+            <a href="cart.html" class="cart-icon" title="Shopping Cart">
+              🛍️
+              <span class="cart-count" id="cart-count" style="display: none">0</span>
+            </a>
+            <button class="user-icon" id="user-menu-btn" title="Account">👤</button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- User Menu Dropdown -->
+    <div id="user-menu" class="modal">
+      <div class="modal-content" style="max-width: 300px">
+        <div class="modal-header">
+          <h3 class="modal-title">Account</h3>
+          <button class="modal-close" onclick="closeUserMenu()">✕</button>
+        </div>
+        <div id="auth-menu">
+          <!-- Will be populated by auth.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Breadcrumbs -->
+      <section style="background-color: var(--bg-secondary); padding: 1rem 0">
+        <div class="container">
+          <div class="breadcrumbs">
+            <a href="../index.html">Home</a>
+            <span>/</span>
+            <span>Shop</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shop Header -->
+      <section style="padding: 2rem 0">
+        <div class="container">
+          <h1>Our Collection</h1>
+          <p style="color: var(--text-secondary); margin-bottom: 2rem">
+            Discover our curated selection of premium fragrances
+          </p>
+
+          <!-- Search & Filter -->
+          <div class="flex justify-between items-center gap-3 mb-4" style="flex-wrap: wrap">
+            <input
+              type="text"
+              id="search-input"
+              placeholder="Search by name..."
+              style="flex: 1; min-width: 200px"
+            />
+
+            <select id="category-filter" style="min-width: 150px">
+              <option value="">All Categories</option>
+              <option value="Men">Men</option>
+              <option value="Women">Women</option>
+              <option value="Unisex">Unisex</option>
+            </select>
+
+            <select id="sort-filter" style="min-width: 150px">
+              <option value="name">Sort by Name</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- Products Grid -->
+      <section style="padding-bottom: 4rem">
+        <div class="container">
+          <div class="grid grid-cols-4 gap-4" id="products-grid">
+            <div style="grid-column: 1 / -1; text-align: center; padding: 2rem">
+              <p>Loading products...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>ScentsBymotun</h4>
+            <p>Premium luxury fragrances for the discerning individual.</p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="shop.html">Shop</a>
+            <a href="#about">About Us</a>
+            <a href="#returns">Returns</a>
+          </div>
+
+          <div class="footer-section">
+            <h4>Customer Service</h4>
+            <a href="mailto:support@scentsbymotun.com">Email Support</a>
+            <a href="tel:+2341234567890">Call Us</a>
+            <a href="#faq">FAQ</a>
+          </div>
+
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-links">
+              <a href="https://instagram.com/scentsbymotun" target="_blank" title="Instagram">📷</a>
+              <a href="https://twitter.com/scentsbymotun" target="_blank" title="Twitter">𝕏</a>
+              <a href="https://facebook.com/scentsbymotun" target="_blank" title="Facebook">f</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 ScentsBymotun. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+      import { products } from '../js/products.js';
+      import { cart } from '../js/cart.js';
+      import { auth } from '../js/auth.js';
+
+      // [v0] Initialize shop page
+      console.log('[v0] Shop page initializing');
+
+      let allProducts = [];
+      const urlParams = new URLSearchParams(window.location.search);
+      const categoryFilter = urlParams.get('category');
+
+      // Load all products
+      async function loadProducts() {
+        try {
+          allProducts = await products.getAllProducts();
+          if (categoryFilter) {
+            document.getElementById('category-filter').value = categoryFilter;
+          }
+          renderProducts();
+        } catch (error) {
+          console.error('[v0] Error loading products:', error);
+          document.getElementById('products-grid').innerHTML =
+            '<p style="grid-column: 1 / -1">Failed to load products. Please refresh.</p>';
+        }
+      }
+
+      // Render products
+      function renderProducts() {
+        let filtered = allProducts;
+
+        // Filter by category
+        const category = document.getElementById('category-filter').value;
+        if (category) {
+          filtered = filtered.filter((p) => p.category === category);
+        }
+
+        // Filter by search
+        const search = document.getElementById('search-input').value.toLowerCase();
+        if (search) {
+          filtered = filtered.filter(
+            (p) => p.name.toLowerCase().includes(search) || p.description.toLowerCase().includes(search)
+          );
+        }
+
+        // Sort
+        const sort = document.getElementById('sort-filter').value;
+        if (sort === 'price-low') {
+          filtered.sort((a, b) => a.price - b.price);
+        } else if (sort === 'price-high') {
+          filtered.sort((a, b) => b.price - a.price);
+        } else {
+          filtered.sort((a, b) => a.name.localeCompare(b.name));
+        }
+
+        // Render
+        const grid = document.getElementById('products-grid');
+
+        if (filtered.length === 0) {
+          grid.innerHTML = '<p style="grid-column: 1 / -1; text-align: center">No products found.</p>';
+          return;
+        }
+
+        grid.innerHTML = filtered
+          .map(
+            (product) => `
+          <div class="product-card">
+            <img src="${product.image_url}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300x300?text=${encodeURIComponent(product.name)}'">
+            <div class="product-content">
+              <div class="product-category">${product.category}</div>
+              <h3 class="product-name">${product.name}</h3>
+              <div class="product-price">₦${product.price.toLocaleString()}</div>
+              <button class="btn btn-primary btn-block" onclick="viewProduct('${product.id}')">
+                View Details
+              </button>
+            </div>
+          </div>
+        `
+          )
+          .join('');
+      }
+
+      // Update cart count
+      function updateCartCount() {
+        const count = cart.getCartCount();
+        const badge = document.getElementById('cart-count');
+        if (count > 0) {
+          badge.textContent = count;
+          badge.style.display = 'flex';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+
+      // Update auth menu
+      function updateAuthMenu() {
+        const menu = document.getElementById('auth-menu');
+        if (auth.isAuthenticated()) {
+          menu.innerHTML = `
+            <p style="margin-bottom: var(--spacing-md)">Welcome, <strong>${auth.getUser().email}</strong></p>
+            <button class="btn btn-primary btn-block mb-2" onclick="logout()">Logout</button>
+          `;
+        } else {
+          menu.innerHTML = `
+            <button class="btn btn-primary btn-block mb-2" onclick="goToLogin()">Login</button>
+            <button class="btn btn-secondary btn-block" onclick="goToSignup()">Sign Up</button>
+          `;
+        }
+      }
+
+      // Global functions
+      window.viewProduct = (productId) => {
+        window.location.href = `product.html?id=${productId}`;
+      };
+
+      window.goToLogin = () => {
+        window.location.href = 'login.html';
+      };
+
+      window.goToSignup = () => {
+        window.location.href = 'signup.html';
+      };
+
+      window.logout = async () => {
+        await auth.signOut();
+        window.location.href = 'shop.html';
+      };
+
+      window.closeUserMenu = () => {
+        document.getElementById('user-menu').classList.remove('active');
+      };
+
+      // Event listeners
+      document.getElementById('search-input').addEventListener('input', renderProducts);
+      document.getElementById('category-filter').addEventListener('change', renderProducts);
+      document.getElementById('sort-filter').addEventListener('change', renderProducts);
+
+      document.getElementById('user-menu-btn').addEventListener('click', () => {
+        document.getElementById('user-menu').classList.add('active');
+      });
+
+      document.getElementById('user-menu').addEventListener('click', (e) => {
+        if (e.target.id === 'user-menu') {
+          closeUserMenu();
+        }
+      });
+
+      window.addEventListener('cart_updated', updateCartCount);
+      window.addEventListener('auth_state_changed', updateAuthMenu);
+
+      // Initialize
+      loadProducts();
+      updateCartCount();
+      updateAuthMenu();
+    </script>
+  </body>
+</html>

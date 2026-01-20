@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Order Success - ScentsBymotun" />
+    <title>Order Success - ScentsBymotun</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+  </head>
+  <body>
+    <!-- Header & Navigation -->
+    <header>
+      <div class="container">
+        <nav class="flex justify-between items-center">
+          <a href="../index.html" class="logo">ScentsBymotun</a>
+
+          <ul class="nav-menu">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+          </ul>
+
+          <div class="nav-actions">
+            <a href="cart.html" class="cart-icon" title="Shopping Cart">
+              🛍️
+              <span class="cart-count" id="cart-count" style="display: none">0</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <section style="padding: 4rem 0">
+        <div class="container-sm">
+          <!-- Success Message -->
+          <div class="text-center mb-4">
+            <div style="font-size: 4rem; margin-bottom: 1rem">✓</div>
+            <h1 style="color: #388e3c; margin-bottom: 1rem">Order Placed Successfully!</h1>
+            <p style="font-size: 1.125rem; color: var(--text-secondary); margin-bottom: 2rem">
+              Thank you for your purchase. Your order has been confirmed and is being processed.
+            </p>
+          </div>
+
+          <!-- Order Details Card -->
+          <div class="card p-6 mb-4">
+            <h3 style="margin-bottom: 1.5rem">Order Details</h3>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem">
+              <div>
+                <p style="color: var(--text-secondary); margin-bottom: 0.25rem; font-size: 0.875rem">
+                  ORDER NUMBER
+                </p>
+                <p style="font-size: 1.25rem; font-weight: 600; margin: 0" id="order-number">
+                  #000000
+                </p>
+              </div>
+
+              <div>
+                <p style="color: var(--text-secondary); margin-bottom: 0.25rem; font-size: 0.875rem">
+                  ORDER DATE
+                </p>
+                <p style="font-size: 1.125rem; font-weight: 600; margin: 0" id="order-date">
+                  <!-- Will be populated -->
+                </p>
+              </div>
+            </div>
+
+            <div style="border-top: 1px solid var(--border-color); padding-top: 1.5rem">
+              <h4 style="margin-bottom: 1rem">Order Items</h4>
+              <div id="order-items" style="margin-bottom: 1.5rem">
+                <!-- Items will be rendered here -->
+              </div>
+
+              <div style="border-top: 1px solid var(--border-color); padding-top: 1rem">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem">
+                  <span>Subtotal:</span>
+                  <span id="subtotal">₦0</span>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem">
+                  <span>Shipping:</span>
+                  <span id="shipping">₦0</span>
+                </div>
+
+                <div
+                  style="display: flex; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--border-color)"
+                >
+                  <strong>Total:</strong>
+                  <strong style="color: var(--secondary); font-size: 1.25rem" id="total">₦0</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping Address Card -->
+          <div class="card p-6 mb-4">
+            <h3 style="margin-bottom: 1rem">Shipping Address</h3>
+            <p id="shipping-address" style="margin: 0; line-height: 1.8">
+              <!-- Will be populated -->
+            </p>
+          </div>
+
+          <!-- Next Steps Card -->
+          <div class="card p-6 mb-4" style="background-color: var(--bg-secondary)">
+            <h3 style="margin-bottom: 1rem">What's Next?</h3>
+            <ol style="margin: 0; padding-left: 1.5rem; line-height: 2">
+              <li>You'll receive a confirmation email shortly</li>
+              <li>Our team will prepare and pack your order</li>
+              <li>You'll get a tracking number via email</li>
+              <li>Enjoy your premium fragrances!</li>
+            </ol>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="flex gap-2 justify-center">
+            <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+            <a href="../index.html" class="btn btn-secondary">Back to Home</a>
+          </div>
+
+          <!-- Contact Info -->
+          <div class="text-center mt-4" style="color: var(--text-secondary); font-size: 0.875rem">
+            <p>
+              Questions about your order?
+              <a href="mailto:support@scentsbymotun.com" style="color: var(--secondary)">Contact us</a>
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>ScentsBymotun</h4>
+            <p>Premium luxury fragrances for the discerning individual.</p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="shop.html">Shop</a>
+            <a href="#about">About Us</a>
+            <a href="#returns">Returns</a>
+          </div>
+
+          <div class="footer-section">
+            <h4>Customer Service</h4>
+            <a href="mailto:support@scentsbymotun.com">Email Support</a>
+            <a href="tel:+2341234567890">Call Us</a>
+            <a href="#faq">FAQ</a>
+          </div>
+
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-links">
+              <a href="https://instagram.com/scentsbymotun" target="_blank" title="Instagram">📷</a>
+              <a href="https://twitter.com/scentsbymotun" target="_blank" title="Twitter">𝕏</a>
+              <a href="https://facebook.com/scentsbymotun" target="_blank" title="Facebook">f</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 ScentsBymotun. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+      import { auth } from '../js/auth.js';
+      import { cart } from '../js/cart.js';
+      import { checkout } from '../js/checkout.js';
+
+      // [v0] Initialize success page
+      console.log('[v0] Success page initializing');
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const orderId = urlParams.get('order_id');
+
+      const SHIPPING_THRESHOLD = 50000;
+      const SHIPPING_COST = 2500;
+
+      // Load order details
+      async function loadOrderDetails() {
+        try {
+          if (!orderId) {
+            throw new Error('Order ID not found');
+          }
+
+          const order = await checkout.getOrder(orderId);
+          if (!order) {
+            throw new Error('Order not found');
+          }
+
+          const items = await checkout.getOrderItems(orderId);
+
+          displayOrderDetails(order, items);
+
+          // Clear cart after successful order
+          cart.clearCart();
+        } catch (error) {
+          console.error('[v0] Error loading order:', error);
+          document.querySelector('main').innerHTML =
+            '<div class="container"><p style="color: red">Failed to load order details.</p></div>';
+        }
+      }
+
+      // Display order details
+      function displayOrderDetails(order, items) {
+        // Order number
+        document.getElementById('order-number').textContent = `#${order.id.substring(0, 8).toUpperCase()}`;
+
+        // Order date
+        const date = new Date(order.created_at);
+        document.getElementById('order-date').textContent = date.toLocaleDateString('en-NG', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+        });
+
+        // Order items
+        const itemsHTML = items
+          .map(
+            (item) => `
+          <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color)">
+            <div>
+              <p style="font-weight: 600; margin: 0 0 0.25rem 0">Product #${item.product_id}</p>
+              <p style="color: var(--text-secondary); margin: 0; font-size: 0.875rem">Quantity: ${item.quantity}</p>
+            </div>
+            <p style="font-weight: 600; margin: 0">₦${(item.price * item.quantity).toLocaleString()}</p>
+          </div>
+        `
+          )
+          .join('');
+
+        document.getElementById('order-items').innerHTML = itemsHTML;
+
+        // Calculate totals
+        const subtotal = order.total_amount;
+        const shipping = subtotal >= SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+        const total = subtotal + shipping;
+
+        document.getElementById('subtotal').textContent = '₦' + subtotal.toLocaleString();
+        document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : '₦' + shipping.toLocaleString();
+        document.getElementById('total').textContent = '₦' + total.toLocaleString();
+
+        // Shipping address
+        const shippingInfo = order.shipping_address || {};
+        const addressHTML = `
+          <strong>${shippingInfo.firstName || ''} ${shippingInfo.lastName || ''}</strong><br>
+          ${shippingInfo.address || 'N/A'}<br>
+          ${shippingInfo.city || ''} ${shippingInfo.state || ''} ${shippingInfo.postal || ''}
+        `;
+        document.getElementById('shipping-address').innerHTML = addressHTML;
+      }
+
+      // Update cart count
+      function updateCartCount() {
+        const count = cart.getCartCount();
+        const badge = document.getElementById('cart-count');
+        if (count > 0) {
+          badge.textContent = count;
+          badge.style.display = 'flex';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+
+      // Initialize
+      loadOrderDetails();
+      updateCartCount();
+    </script>
+  </body>
+</html>

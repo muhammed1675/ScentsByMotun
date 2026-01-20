@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="ScentsBymotun - Premium Perfumes & Luxury Fragrances" />
+    <title>ScentsBymotun - Premium Perfumes</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+  </head>
+  <body>
+    <!-- Header & Navigation -->
+    <header>
+      <div class="container">
+        <nav class="flex justify-between items-center">
+          <a href="index.html" class="logo">ScentsBymotun</a>
+
+          <ul class="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="pages/shop.html">Shop</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+
+          <div class="nav-actions">
+            <a href="pages/cart.html" class="cart-icon" title="Shopping Cart">
+              🛍️
+              <span class="cart-count" id="cart-count" style="display: none">0</span>
+            </a>
+            <button class="user-icon" id="user-menu-btn" title="Account">👤</button>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- User Menu Dropdown -->
+    <div id="user-menu" class="modal">
+      <div class="modal-content" style="max-width: 300px">
+        <div class="modal-header">
+          <h3 class="modal-title">Account</h3>
+          <button class="modal-close" onclick="closeUserMenu()">✕</button>
+        </div>
+        <div id="auth-menu">
+          <!-- Will be populated by auth.js -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <h1>Discover Your Signature Scent</h1>
+            <p>Indulge in luxury fragrances crafted to perfection. Each bottle tells a story.</p>
+            <a href="pages/shop.html" class="btn btn-gold btn-lg">Shop Now</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured Products -->
+      <section id="featured-section">
+        <div class="container">
+          <h2 class="section-title">Featured Collection</h2>
+          <p class="section-subtitle">Explore our most coveted fragrances</p>
+
+          <div class="grid grid-cols-4 gap-4" id="featured-products">
+            <!-- Products will be loaded here by JavaScript -->
+            <div style="text-align: center; padding: 2rem">
+              <p>Loading featured products...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Categories Section -->
+      <section style="background-color: var(--bg-secondary)">
+        <div class="container">
+          <h2 class="section-title">Shop by Category</h2>
+
+          <div class="categories-grid">
+            <div class="category-card" onclick="shopByCategory('Men')">
+              <h3>For Men</h3>
+              <p>Bold & sophisticated fragrances</p>
+            </div>
+            <div class="category-card" onclick="shopByCategory('Women')">
+              <h3>For Women</h3>
+              <p>Elegant & captivating scents</p>
+            </div>
+            <div class="category-card" onclick="shopByCategory('Unisex')">
+              <h3>Unisex</h3>
+              <p>Versatile fragrances for everyone</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials Section -->
+      <section>
+        <div class="container">
+          <h2 class="section-title">What Our Customers Say</h2>
+
+          <div class="grid grid-cols-3 gap-4">
+            <div class="card p-4">
+              <div class="testimonial-rating">★★★★★</div>
+              <p class="testimonial-content">
+                "The quality of these fragrances is exceptional. I've been a loyal customer for years!"
+              </p>
+              <p class="testimonial-author">— Amara I.</p>
+            </div>
+
+            <div class="card p-4">
+              <div class="testimonial-rating">★★★★★</div>
+              <p class="testimonial-content">
+                "Every scent is beautifully crafted. The delivery was fast and the packaging was
+                luxurious."
+              </p>
+              <p class="testimonial-author">— Chioma O.</p>
+            </div>
+
+            <div class="card p-4">
+              <div class="testimonial-rating">★★★★★</div>
+              <p class="testimonial-content">
+                "ScentsBymotun has the best customer service. Highly recommended to all perfume lovers!"
+              </p>
+              <p class="testimonial-author">— Tunde A.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>ScentsBymotun</h4>
+            <p>Premium luxury fragrances for the discerning individual.</p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="pages/shop.html">Shop</a>
+            <a href="#about">About Us</a>
+            <a href="#returns">Returns</a>
+          </div>
+
+          <div class="footer-section">
+            <h4>Customer Service</h4>
+            <a href="mailto:support@scentsbymotun.com">Email Support</a>
+            <a href="tel:+2341234567890">Call Us</a>
+            <a href="#faq">FAQ</a>
+          </div>
+
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-links">
+              <a href="https://instagram.com/scentsbymotun" target="_blank" title="Instagram">📷</a>
+              <a href="https://twitter.com/scentsbymotun" target="_blank" title="Twitter">𝕏</a>
+              <a href="https://facebook.com/scentsbymotun" target="_blank" title="Facebook">f</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 ScentsBymotun. All rights reserved.</p>
+          <p>
+            <a href="#privacy">Privacy Policy</a> | <a href="#terms">Terms of Service</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+      import { products } from './js/products.js';
+      import { cart } from './js/cart.js';
+      import { auth } from './js/auth.js';
+
+      // [v0] Initialize the home page
+      console.log('[v0] Home page initializing');
+
+      // Load featured products
+      async function loadFeaturedProducts() {
+        try {
+          const featured = await products.getFeaturedProducts(8);
+          const container = document.getElementById('featured-products');
+
+          if (featured.length === 0) {
+            container.innerHTML = '<p style="grid-column: 1 / -1; text-align: center">No products available yet.</p>';
+            return;
+          }
+
+          container.innerHTML = featured
+            .map(
+              (product) => `
+            <div class="product-card">
+              <img src="${product.image_url}" alt="${product.name}" class="product-image" onerror="this.src='https://via.placeholder.com/300x300?text=${encodeURIComponent(product.name)}'">
+              <div class="product-content">
+                <div class="product-category">${product.category}</div>
+                <h3 class="product-name">${product.name}</h3>
+                <div class="product-price">₦${product.price.toLocaleString()}</div>
+                <button class="btn btn-primary btn-block" onclick="viewProduct('${product.id}')">
+                  View Details
+                </button>
+              </div>
+            </div>
+          `
+            )
+            .join('');
+        } catch (error) {
+          console.error('[v0] Error loading featured products:', error);
+        }
+      }
+
+      // Update cart count in header
+      function updateCartCount() {
+        const count = cart.getCartCount();
+        const badge = document.getElementById('cart-count');
+        if (count > 0) {
+          badge.textContent = count;
+          badge.style.display = 'flex';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+
+      // Update auth menu
+      function updateAuthMenu() {
+        const menu = document.getElementById('auth-menu');
+        if (auth.isAuthenticated()) {
+          menu.innerHTML = `
+            <p style="margin-bottom: var(--spacing-md)">Welcome, <strong>${auth.getUser().email}</strong></p>
+            <button class="btn btn-primary btn-block mb-2" onclick="goToOrders()">My Orders</button>
+            ${auth.isUserAdmin() ? '<button class="btn btn-secondary btn-block mb-2" onclick="goToAdmin()">Admin Dashboard</button>' : ''}
+            <button class="btn btn-secondary btn-block" onclick="logout()">Logout</button>
+          `;
+        } else {
+          menu.innerHTML = `
+            <button class="btn btn-primary btn-block mb-2" onclick="goToLogin()">Login</button>
+            <button class="btn btn-secondary btn-block" onclick="goToSignup()">Sign Up</button>
+          `;
+        }
+      }
+
+      // Global functions
+      window.viewProduct = (productId) => {
+        window.location.href = `pages/product.html?id=${productId}`;
+      };
+
+      window.shopByCategory = (category) => {
+        window.location.href = `pages/shop.html?category=${category}`;
+      };
+
+      window.goToLogin = () => {
+        window.location.href = 'pages/login.html';
+      };
+
+      window.goToSignup = () => {
+        window.location.href = 'pages/signup.html';
+      };
+
+      window.goToOrders = () => {
+        closeUserMenu();
+        if (auth.isAuthenticated()) {
+          alert('My Orders page coming soon!');
+        }
+      };
+
+      window.goToAdmin = () => {
+        closeUserMenu();
+        if (auth.isUserAdmin()) {
+          window.location.href = 'pages/admin.html';
+        }
+      };
+
+      window.logout = async () => {
+        try {
+          await auth.signOut();
+          updateAuthMenu();
+          updateCartCount();
+          closeUserMenu();
+          window.location.href = 'index.html';
+        } catch (error) {
+          alert('Logout failed: ' + error.message);
+        }
+      };
+
+      // User menu modal
+      document.getElementById('user-menu-btn').addEventListener('click', () => {
+        document.getElementById('user-menu').classList.add('active');
+      });
+
+      window.closeUserMenu = () => {
+        document.getElementById('user-menu').classList.remove('active');
+      };
+
+      document.getElementById('user-menu').addEventListener('click', (e) => {
+        if (e.target.id === 'user-menu') {
+          closeUserMenu();
+        }
+      });
+
+      // Listen for cart updates
+      window.addEventListener('cart_updated', updateCartCount);
+      window.addEventListener('auth_state_changed', () => {
+        updateAuthMenu();
+        updateCartCount();
+      });
+
+      // Initialize
+      loadFeaturedProducts();
+      updateCartCount();
+      updateAuthMenu();
+    </script>
+  </body>
+</html>

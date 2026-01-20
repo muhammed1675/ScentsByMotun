@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Checkout - ScentsBymotun" />
+    <title>Checkout - ScentsBymotun</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <script src="https://js.paystack.co/v1/inline.js"></script>
+  </head>
+  <body>
+    <!-- Header & Navigation -->
+    <header>
+      <div class="container">
+        <nav class="flex justify-between items-center">
+          <a href="../index.html" class="logo">ScentsBymotun</a>
+
+          <ul class="nav-menu">
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="shop.html">Shop</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+          </ul>
+
+          <div class="nav-actions">
+            <a href="cart.html" class="cart-icon" title="Shopping Cart">
+              🛍️
+              <span class="cart-count" id="cart-count" style="display: none">0</span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Breadcrumbs -->
+      <section style="background-color: var(--bg-secondary); padding: 1rem 0">
+        <div class="container">
+          <div class="breadcrumbs">
+            <a href="../index.html">Home</a>
+            <span>/</span>
+            <a href="cart.html">Cart</a>
+            <span>/</span>
+            <span>Checkout</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Checkout Section -->
+      <section>
+        <div class="container">
+          <h1>Checkout</h1>
+
+          <!-- Error Message -->
+          <div id="error-message" style="display: none" class="alert alert-error mb-4"></div>
+
+          <!-- Loading State -->
+          <div id="loading-state" style="display: none; text-align: center; padding: 3rem">
+            <p>Processing your order...</p>
+          </div>
+
+          <!-- Checkout Form -->
+          <form id="checkout-form" style="display: block">
+            <div class="grid grid-cols-3 gap-4">
+              <!-- Shipping & Order Info -->
+              <div style="grid-column: 1 / 3">
+                <div class="card p-6 mb-4">
+                  <h3 style="margin-bottom: 1.5rem">Shipping Information</h3>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="form-group">
+                      <label for="first-name">First Name</label>
+                      <input type="text" id="first-name" name="first-name" required />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="last-name">Last Name</label>
+                      <input type="text" id="last-name" name="last-name" required />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+234 xxx xxxx xxxx" />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="address">Street Address</label>
+                    <input type="text" id="address" name="address" required />
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <div class="form-group">
+                      <label for="city">City</label>
+                      <input type="text" id="city" name="city" required />
+                    </div>
+
+                    <div class="form-group">
+                      <label for="state">State</label>
+                      <input type="text" id="state" name="state" required />
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="postal">Postal Code</label>
+                    <input type="text" id="postal" name="postal" required />
+                  </div>
+                </div>
+
+                <!-- Order Notes -->
+                <div class="card p-6">
+                  <h3 style="margin-bottom: 1.5rem">Order Notes (Optional)</h3>
+
+                  <div class="form-group">
+                    <label for="notes">Special Instructions</label>
+                    <textarea id="notes" name="notes" placeholder="Any special requests or delivery instructions..."></textarea>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Order Summary -->
+              <div>
+                <div class="card p-6" style="position: sticky; top: 100px">
+                  <h3 style="margin-bottom: 1.5rem">Order Summary</h3>
+
+                  <div id="order-items" style="margin-bottom: 1.5rem; max-height: 300px; overflow-y: auto">
+                    <!-- Items will be rendered here -->
+                  </div>
+
+                  <div style="border-top: 1px solid var(--border-color); padding-top: 1rem">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem">
+                      <span>Subtotal:</span>
+                      <span id="subtotal">₦0</span>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem">
+                      <span>Shipping:</span>
+                      <span id="shipping">₦0</span>
+                    </div>
+
+                    <div
+                      style="border-top: 1px solid var(--border-color); padding-top: 1rem; display: flex; justify-content: space-between; margin-bottom: 1.5rem"
+                    >
+                      <strong>Total:</strong>
+                      <strong id="total" style="color: var(--secondary); font-size: 1.25rem">₦0</strong>
+                    </div>
+                  </div>
+
+                  <button type="submit" class="btn btn-gold btn-lg btn-block">
+                    Proceed to Payment
+                  </button>
+
+                  <p style="text-align: center; color: var(--text-secondary); font-size: 0.875rem; margin-top: 1rem">
+                    <a href="cart.html" style="color: var(--secondary)">← Back to cart</a>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer style="margin-top: 4rem">
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-section">
+            <h4>ScentsBymotun</h4>
+            <p>Premium luxury fragrances for the discerning individual.</p>
+          </div>
+
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <a href="shop.html">Shop</a>
+            <a href="#about">About Us</a>
+            <a href="#returns">Returns</a>
+          </div>
+
+          <div class="footer-section">
+            <h4>Customer Service</h4>
+            <a href="mailto:support@scentsbymotun.com">Email Support</a>
+            <a href="tel:+2341234567890">Call Us</a>
+            <a href="#faq">FAQ</a>
+          </div>
+
+          <div class="footer-section">
+            <h4>Follow Us</h4>
+            <div class="social-links">
+              <a href="https://instagram.com/scentsbymotun" target="_blank" title="Instagram">📷</a>
+              <a href="https://twitter.com/scentsbymotun" target="_blank" title="Twitter">𝕏</a>
+              <a href="https://facebook.com/scentsbymotun" target="_blank" title="Facebook">f</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <p>&copy; 2024 ScentsBymotun. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script type="module">
+      import { auth } from '../js/auth.js';
+      import { cart } from '../js/cart.js';
+      import { checkout } from '../js/checkout.js';
+
+      // [v0] Initialize checkout page
+      console.log('[v0] Checkout page initializing');
+
+      const SHIPPING_THRESHOLD = 50000;
+      const SHIPPING_COST = 2500;
+
+      // Check authentication
+      if (!auth.isAuthenticated()) {
+        window.location.href = 'login.html';
+      }
+
+      // Display order items
+      function displayOrderItems() {
+        const items = cart.getCart();
+        const user = auth.getUser();
+
+        // Pre-fill email from user
+        document.getElementById('email').value = user.email;
+
+        const itemsHTML = items
+          .map(
+            (item) => `
+          <div style="display: flex; gap: 1rem; margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border-color)">
+            <img src="${item.image_url}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: var(--radius-md)" onerror="this.src='https://via.placeholder.com/60?text=${encodeURIComponent(item.name)}'">
+            <div style="flex: 1">
+              <p style="font-weight: 600; margin: 0 0 0.25rem 0">${item.name}</p>
+              <p style="color: var(--text-secondary); margin: 0; font-size: 0.875rem">Qty: ${item.quantity}</p>
+            </div>
+            <p style="font-weight: 600; margin: 0">₦${(item.price * item.quantity).toLocaleString()}</p>
+          </div>
+        `
+          )
+          .join('');
+
+        document.getElementById('order-items').innerHTML = itemsHTML;
+        updateOrderSummary();
+      }
+
+      // Update order summary
+      function updateOrderSummary() {
+        const subtotal = cart.getCartTotal();
+        const shipping = subtotal >= SHIPPING_THRESHOLD ? 0 : SHIPPING_COST;
+        const total = subtotal + shipping;
+
+        document.getElementById('subtotal').textContent = '₦' + subtotal.toLocaleString();
+        document.getElementById('shipping').textContent = shipping === 0 ? 'FREE' : '₦' + shipping.toLocaleString();
+        document.getElementById('total').textContent = '₦' + total.toLocaleString();
+      }
+
+      // Handle checkout submission
+      const form = document.getElementById('checkout-form');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        try {
+          document.getElementById('checkout-form').style.display = 'none';
+          document.getElementById('loading-state').style.display = 'block';
+          document.getElementById('error-message').style.display = 'none';
+
+          // Create order in Supabase
+          const order = await checkout.createOrder({
+            shipping_address: {
+              firstName: document.getElementById('first-name').value,
+              lastName: document.getElementById('last-name').value,
+              email: document.getElementById('email').value,
+              phone: document.getElementById('phone').value,
+              address: document.getElementById('address').value,
+              city: document.getElementById('city').value,
+              state: document.getElementById('state').value,
+              postal: document.getElementById('postal').value,
+              notes: document.getElementById('notes').value,
+            },
+          });
+
+          console.log('[v0] Order created:', order.id);
+
+          // Initialize Paystack payment
+          const email = document.getElementById('email').value;
+          const amount = cart.getCartTotal();
+
+          // Redirect to payment
+          sessionStorage.setItem('pending_order_id', order.id);
+
+          // Initialize Paystack inline
+          const reference = `SBM-${Date.now()}-${Math.random().toString(36).substring(7)}`;
+
+          const handler = PaystackPop.setup({
+            key: '{{ PAYSTACK_PUBLIC_KEY }}', // Will be replaced by user
+            email: email,
+            amount: amount * 100, // Convert to kobo
+            currency: 'NGN',
+            ref: reference,
+            onClose: () => {
+              document.getElementById('loading-state').style.display = 'none';
+              document.getElementById('checkout-form').style.display = 'block';
+              document.getElementById('error-message').style.display = 'block';
+              document.getElementById('error-message').textContent = 'Payment window closed. Please try again.';
+            },
+            onSuccess: async (response) => {
+              try {
+                // Verify payment with Edge Function
+                const verification = await checkout.verifyPayment(response.reference, order.id);
+
+                if (verification.success) {
+                  // Redirect to success page
+                  window.location.href = `success.html?order_id=${order.id}`;
+                } else {
+                  throw new Error(verification.message || 'Payment verification failed');
+                }
+              } catch (error) {
+                console.error('[v0] Payment verification error:', error);
+                alert('Payment verification failed: ' + error.message);
+
+                document.getElementById('loading-state').style.display = 'none';
+                document.getElementById('checkout-form').style.display = 'block';
+              }
+            },
+          });
+
+          handler.openIframe();
+        } catch (error) {
+          console.error('[v0] Checkout error:', error);
+
+          document.getElementById('loading-state').style.display = 'none';
+          document.getElementById('checkout-form').style.display = 'block';
+          document.getElementById('error-message').style.display = 'block';
+          document.getElementById('error-message').textContent = error.message || 'Checkout failed. Please try again.';
+        }
+      });
+
+      // Update cart count
+      function updateCartCount() {
+        const count = cart.getCartCount();
+        const badge = document.getElementById('cart-count');
+        if (count > 0) {
+          badge.textContent = count;
+          badge.style.display = 'flex';
+        } else {
+          badge.style.display = 'none';
+        }
+      }
+
+      // Initialize
+      displayOrderItems();
+      updateCartCount();
+    </script>
+  </body>
+</html>

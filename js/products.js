@@ -21,13 +21,15 @@ class ProductsManager {
         return this.cache.all;
       }
 
-      const products = await supabase.get('products', {
-        select: '*',
-        order: 'order_by=name.asc',
-      });
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .order('name', { ascending: true });
 
-      this.cache.all = products;
-      return products;
+      if (error) throw error;
+
+      this.cache.all = data;
+      return data;
     } catch (error) {
       console.error('[Products] Error fetching products:', error);
       return [];
@@ -44,14 +46,16 @@ class ProductsManager {
         return this.cache[cacheKey];
       }
 
-      const products = await supabase.get('products', {
-        select: '*',
-        filter: `category=eq.${category}`,
-        order: 'order_by=name.asc',
-      });
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('category', category)
+        .order('name', { ascending: true });
 
-      this.cache[cacheKey] = products;
-      return products;
+      if (error) throw error;
+
+      this.cache[cacheKey] = data;
+      return data;
     } catch (error) {
       console.error('[Products] Error fetching products by category:', error);
       return [];
@@ -68,16 +72,16 @@ class ProductsManager {
         return this.cache[cacheKey];
       }
 
-      const products = await supabase.get('products', {
-        select: '*',
-        filter: `id=eq.${id}`,
-      });
+      const { data, error } = await supabase
+        .from('products')
+        .select('*')
+        .eq('id', id)
+        .single();
 
-      if (products.length > 0) {
-        this.cache[cacheKey] = products[0];
-        return products[0];
-      }
-      return null;
+      if (error) throw error;
+
+      this.cache[cacheKey] = data;
+      return data;
     } catch (error) {
       console.error('[Products] Error fetching product:', error);
       return null;
@@ -120,7 +124,12 @@ class ProductsManager {
    */
   async createProduct(productData) {
     try {
-      return await supabase.create('products', productData);
+      const { data, error } = await supabase
+        .from('products')
+        .insert([productData]);
+
+      if (error) throw error;
+      return data;
     } catch (error) {
       console.error('[Products] Error creating product:', error);
       throw error;
@@ -132,11 +141,16 @@ class ProductsManager {
    */
   async updateProduct(id, productData) {
     try {
-      const result = await supabase.update('products', productData, `id=eq.${id}`);
-      // Clear cache
+      const { data, error } = await supabase
+        .from('products')
+        .update(productData)
+        .eq('id', id);
+
+      if (error) throw error;
+
       delete this.cache[`product_${id}`];
       delete this.cache.all;
-      return result;
+      return data;
     } catch (error) {
       console.error('[Products] Error updating product:', error);
       throw error;
@@ -148,11 +162,16 @@ class ProductsManager {
    */
   async deleteProduct(id) {
     try {
-      const result = await supabase.delete('products', `id=eq.${id}`);
-      // Clear cache
+      const { data, error } = await supabase
+        .from('products')
+        .delete()
+        .eq('id', id);
+
+      if (error) throw error;
+
       delete this.cache[`product_${id}`];
       delete this.cache.all;
-      return result;
+      return data;
     } catch (error) {
       console.error('[Products] Error deleting product:', error);
       throw error;
